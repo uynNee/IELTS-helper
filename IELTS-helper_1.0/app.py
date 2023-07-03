@@ -20,8 +20,6 @@ headers = {
 app = Flask(__name__)
 
 def get_reasoning(error_type, text, input_word, corrected_word):
-    input_word = input_word.replace("&nbsp;", " ")
-    corrected_word = corrected_word.replace("&nbsp;", " ")
     if error_type == 1:
         prompt = f"Logical explanation in 15 words of the writing error(s) why '{input_word}' is corrected to '{corrected_word}' in this paragraph: '{text}'"
     elif error_type == 2:
