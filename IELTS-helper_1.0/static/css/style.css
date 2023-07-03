@@ -1,0 +1,146 @@
+div {
+    display: block;
+}
+
+h1 {
+    font-family: Open-Sans, Calibri;
+    font-size: 35px;
+    text-align: center;
+}
+h2 {
+    margin-right: 10px;
+    font-family: Open-Sans, Calibri;
+    font-size: 25px;
+}
+label {
+    font-family: Open-Sans, Calibri;
+    font-size: 20px;
+}
+textarea {
+    font-size: 16px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+#sidebar {
+    box-sizing: border-box;
+    outline: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 25%;
+    height: 100vh;
+    background-color: #f2f2f2;
+    overflow-y: scroll;
+    display: inline-block;
+}
+
+#sidebar h2 {
+    text-align: center;
+}
+
+pre {
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    resize: none;
+}
+
+main {
+    width: 75%;
+    flex: auto;
+    height: 100vh;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+button {
+    font-family: sans-serif;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0);
+    border: rgba(0, 0, 0, 0);
+    color: #5581fa;
+    font-weight: bold;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #5581fa;
+    color: white;
+}
+
+.button {
+    font-family: sans-serif;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0);
+    border: rgba(0, 0, 0, 0);
+    color: #31a851;
+    font-weight: bold;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #31a851;
+    color: white;
+}
+
+.highlight {
+    display: inline-block;
+    position: relative;
+    white-space: pre-wrap;
+    z-index: 1;
+}
+.highlight.replace {
+    background-color: #fce130;
+    color: black;
+}
+.highlight.insert {
+    background-color: #41d62d;
+    color: white;
+}
+.highlight.delete {
+    background-color: #de2a2a;
+    color: white;
+}
+
+.popup {
+    color: black;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    padding: 5px;
+    border-radius: 5px;
+    display: none;
+    z-index: 2;
+    white-space: normal;
+    min-width: 150px;
+    max-width: 500px;
+    max-height: 300px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.popup.replace {
+    background-color: #faf9b1;
+}
+.popup.insert {
+    background-color: #b3ffb6;
+}
+.popup.delete {
+    background-color: #f7c6b7;
+}
+
+.highlight:hover .popup {
+    display: block;
+}
+@keyframes soundWaveAnimation {
+    0% { box-shadow: 0 0 0 0 #5581fa; }
+    50% { box-shadow: 0 0 0 5px rgba(85, 129, 250, 0.2); }
+    100% { box-shadow: 0 0 0 0 #5581fa; }
+}
+
+button.recording {
+    animation: soundWaveAnimation 1.5s infinite;
+}

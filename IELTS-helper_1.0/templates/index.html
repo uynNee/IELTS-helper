@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paragraph Correction</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <h1>Paragraph Correction</h1>
+
+    <form method="POST" action="/compare">
+        <label for="input_paragraph">Enter a paragraph:</label>
+        <br>
+        <textarea id="input_paragraph" name="input_paragraph" rows="10" cols="50"></textarea>
+        <br>
+        <button type="button" id="speechToTextButton" onclick="startSpeechToText()">Speech to Text</button>
+        <input type="submit" value="Correct" class="button">
+    </form>
+    <div id="sidebar">
+        <h2>Detected errors</h2>
+        <ul>
+          {% set diff_counter = namespace(count=0) %}
+          {% for diff in diffs %}
+            {% if diff[0] == "replace" %}
+              {% set diff_counter.count = diff_counter.count + 1 %}<pre>
+Replace "<strong>{{ input_words[diff[1]:diff[2]]|join|safe }}</strong>" with "<strong>{{ corrected_words[diff[3]:diff[4]]|join|safe }}</strong>".
+<strong>Possible reason:</strong> {{ reasonings[diff_counter.count - 1] }}</pre>
+            {% endif %}
+            {% if diff[0] == "delete" %}
+            {% set diff_counter.count = diff_counter.count + 1 %}<pre>
+Removed "<strong>{{ input_words[diff[1]:diff[2]]|join|safe }}</strong>" from paragraph.
+<strong>Possible reason:</strong> {{ reasonings[diff_counter.count - 1] }}</pre>
+          {% endif %}
+          {% if diff[0] == "insert" %}
+          {% set diff_counter.count = diff_counter.count + 1 %}<pre>
+Added "<strong>{{ corrected_words[diff[3]:diff[4]]|join|safe }}</strong>" to paragraph.
+<strong>Possible reason:</strong> {{ reasonings[diff_counter.count - 1] }}</pre>
+        {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <main>
+            {% if input_paragraph and corrected_paragraph and diffs %}
+            <h2>Original Paragraph</h2>
+            <pre>{% for word in input_words %}{{ word|join("")|safe }}{% endfor %}</pre>
+            <h2>Corrected Paragraph</h2>
+            <pre>{% for word in corrected_words %}{{ word|join("")|safe }}{% endfor %}</pre>
+            <h2>Highlighted Differences</h2>
+<pre>{% for diff in diffs %}{% if diff[0] == "equal" %}{{ input_words[diff[1]:diff[2]]|join("")|safe }}{% elif diff[0] == "delete" %}<span class="highlight delete">{% for word in input_words[diff[1]:diff[2]] %}{{ word|join("")|safe }}{% endfor %}<span class="popup delete">Removed from sentence.<br><button class="approve" onclick="approveDelete(this)">Approve</button><button class="ignore" onclick="ignoreDelete(this)">Ignore</button></span></span>{% elif diff[0] == "insert" %}<span class="highlight insert">{% for word in corrected_words[diff[3]:diff[4]] %}{{ word|join("")|safe }}{% endfor %}<span class="popup insert">Added to sentence.<br><button class="approve" onclick="approveInsert(this)">Approve</button><button class="ignore" onclick="ignoreInsert(this)">Ignore</button></span></span>{% elif diff[0] == "replace" %}<span class="highlight replace">{% for word in input_words[diff[1]:diff[2]] %}{{ word|join("")|safe }}{% endfor %}<span class="popup replace">{% set corrected_words_loop = "" %}{% for word in corrected_words[diff[3]:diff[4]] %}{{ word|join("")|safe }}{% endfor %}<br><button class="approve" onclick="approveReplace(this)">Approve</button><button class="ignore" onclick="ignoreReplace(this)">Ignore</button></span></span>{% endif %}{% endfor %}</pre>{% endif %}
+      </main>
+</body>
+</html>

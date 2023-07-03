@@ -1,0 +1,5 @@
+1.0:
+-Added in Speech to text into the code.
+-Added animation cue for audio recording.
+-Added more reasoning types.
+-Redone the whole Approve Ignore button.
