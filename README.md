@@ -41,9 +41,14 @@ openai.api_key = "your-api-key"
 
 and replace `"your-api-key"` with your API key.
 
-### 2. Set Model Engine
+### 2. Configure the Flask application
 
-You can optionally set a specific model engine by modifying the `model_engine` variable in `app.py`. By default, it is set to `"text-davinci-003"`. You can change it to another GPT-3.5 model engine if needed.
+Set the secret key for the Flask application:
+Replace "your_secret_key_here" with your desired secret key in the following line of code:
+
+```python
+app.secret_key = "your_secret_key_here"
+```
 
 ### 3. Set Request Headers
 
@@ -85,3 +90,6 @@ To run the Flask application, follow these steps:
 ## Acknowledgments
 
 This Flask application utilizes the OpenAI GPT-3.5 language model. Special thanks to OpenAI for their contribution to natural language processing and generation.
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
