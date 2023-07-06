@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IELTS HELPER</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+<main>
+<h1>Ielts Helper</h1>
+<!-- Option Board -->
+<div class="option-board">
+<button onclick="showForm('corrector')" id="correctorButton" class="active" data-form="corrector">Writing Errors Corrector</button>
+<button onclick="showForm('paraphraser')" id="paraphraserButton" data-form="paraphraser">Paraphraser</button>
+</div>
+
+<!-- Writing Errors Corrector Form -->
+<form id="correctorForm" method="POST" action="/compare" class="active">
+<label for="corrector_input_paragraph">Writing Errors Corrector:</label>
+<br>
+<textarea id="input_paragraph" name="input_paragraph" rows="10" cols="50"></textarea>
+<br>
+<button type="button" id="1speechToTextButton" onclick="startSpeechToText()">Click to speak</button>
+<input type="submit" value="Correct!" class="button">
+<!-- Add the checkbox input -->
+<label for="ielts_checkbox">Calculate IELTS Score:</label><input type="checkbox" id="ielts_checkbox" name="ielts_checkbox">
+</form>
+
+<!-- Paraphraser Form -->
+<form id="paraphraserForm" method="POST" action="/paraphrase">
+<label for="paraphraser_input_paragraph">Paraphraser:</label>
+<br>
+<textarea id="2input_paragraph" name="input_paragraph" rows="10" cols="50"></textarea>
+<br>
+<label for="paraphrase_type">Paraphrase Type:</label>
+<select id="paraphrase_type" name="paraphrase_type">
+<option value="standard">Standard Paraphrase</option>
+<option value="creative">Creative Paraphrase</option>
+<option value="IELTS">IELTS Paraphrase</option>
+<option value="Formal">Formal Paraphrase</option>
+<option value="Scientific">Scientific Paraphrase</option>
+</select>
+<br>
+<button type="button" id="2speechToTextButton" onclick="startSpeechToText()">Click to speak</button>
+<input type="submit" value="Paraphrase!" class="button">
+</form>
+{% if input_paragraph and corrected_paragraph and diffs %}
+<h2>Original Paragraph</h2>
+  <pre>{{input_paragraph}}</pre>
+<h2>Corrected Paragraph</h2>
+  <pre>{{corrected_paragraph}}</pre>
+<h2>Highlighted Differences</h2>
+  <pre>{% for diff in diffs %}{% if diff[0] == "equal" %}{{ input_words[diff[1]:diff[2]]|join("")|safe }}{% elif diff[0] == "delete" %}<span class="highlight delete">{% for word in input_words[diff[1]:diff[2]] %}{{ word|join("")|safe }}{% endfor %}<span class="popup delete">Removed from sentence.<br><button class="approve" onclick="approveDelete(this)">Approve</button><button class="ignore" onclick="ignoreDelete(this)">Ignore</button></span></span>{% elif diff[0] == "insert" %}<span class="highlight insert">{% for word in corrected_words[diff[3]:diff[4]] %}{{ word|join("")|safe }}{% endfor %}<span class="popup insert">Added to sentence.<br><button class="approve" onclick="approveInsert(this)">Approve</button><button class="ignore" onclick="ignoreInsert(this)">Ignore</button></span></span>{% elif diff[0] == "replace" %}<span class="highlight replace">{% for word in input_words[diff[1]:diff[2]] %}{{ word|join("")|safe }}{% endfor %}<span class="popup replace">{% set corrected_words_loop = "" %}{% for word in corrected_words[diff[3]:diff[4]] %}{{ word|join("")|safe }}{% endfor %}<br><button class="approve" onclick="approveReplace(this)">Approve</button><button class="ignore" onclick="ignoreReplace(this)">Ignore</button></span></span>{% endif %}{% endfor %}</pre>{% endif %}
+<footer>
+<p>© 2023 IELTS Helper. All rights reserved. | Do Mai Uyen Nhi - Tran Ngoc Trung</p>
+</footer>
+</main>
+<div id="sidebar">
+<button onclick="fetchRandomTask()">Get a Topic</button>
+<div id="taskData"><pre>{{ task }}</pre></div>
+{% if ielts_score %}<h2>IELTS Score:</h2><pre>{{ ielts_score }}</pre>{% endif %}
+<input type="hidden" id="randomTaskData" name="randomTaskData" value="{{ task }}">
+{% if reasonings %}
+<h2>Detected errors</h2>
+<ul>
+{% set diff_counter = namespace(count=0) %}
+{% for diff in diffs %}
+{% if diff[0] == "replace" %}
+{% set diff_counter.count = diff_counter.count + 1 %}
+<pre>
+Replace "<strong>{{ input_words[diff[1]:diff[2]]|join|safe }}</strong>" with "<strong>{{ corrected_words[diff[3]:diff[4]]|join|safe }}</strong>".
+<strong>Possible reason:</strong> {{ reasonings[diff_counter.count - 1] }}
+</pre>
+{% endif %}
+{% if diff[0] == "delete" %}
+{% set diff_counter.count = diff_counter.count + 1 %}
+<pre>
+Removed "<strong>{{ input_words[diff[1]:diff[2]]|join|safe }}</strong>" from paragraph.
+<strong>Possible reason:</strong> {{ reasonings[diff_counter.count - 1] }}
+</pre>
+{% endif %}
+{% if diff[0] == "insert" %}
+{% set diff_counter.count = diff_counter.count + 1 %}
+<pre>
+Added "<strong>{{ corrected_words[diff[3]:diff[4]]|join|safe }}</strong>" to paragraph.
+<strong>Possible reason:</strong> {{ reasonings[diff_counter.count - 1] }}
+</pre>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+</div>
+</body>
+</html>

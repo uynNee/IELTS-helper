@@ -1,0 +1,340 @@
+body {
+    z-index: 0;
+  }
+  
+div {
+    display: block;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    color: #9381c8;
+    display: inline-block;
+    outline: none;
+    width: 73%;
+}
+
+main footer {
+    text-align: center;
+}
+
+h1 {
+    z-index: 1;
+    font-family: Open-Sans, Calibri;
+    color: #1c234f;
+    font-size: 35px;
+    text-align: center;
+}
+
+h2 {
+    z-index: 1;
+    margin: 0px 0px;
+    margin-top: 15px;
+    font-family: Open-Sans, Calibri;
+    font-size: 25px;
+}
+
+label {
+    font-family: Open-Sans, Calibri;
+    font-size: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: #fafafa;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background-color: #d8b1db;
+    border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.option-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.option-board button {
+    margin: 0 10px;
+    padding: 5px 10px;
+    font-family: sans-serif;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0);
+    border: rgba(0, 0, 0, 0);
+    color: #7b55fa;
+    border-radius: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.option-board button:hover {
+    background-color: #7b55fa;
+    color: white;
+}
+
+.option-board button.active {
+    background-color: #5c37ba;
+    color: white;
+}
+
+/* Styles for the forms */
+form {
+    display: none;
+}
+
+form.active {
+    display: block;
+}
+
+textarea {
+    font-size: 16px;
+    padding: 5px;
+    width: 640px;
+    height: 100px;
+    border: 1px solid #ccc;
+    line-height: 1.25;
+    padding: 10px;
+    border-radius: 16px;
+    background-color: transparent;
+    resize: none;
+    vertical-align: middle;
+    overflow-y: auto;
+}
+
+#paraphrase_type {
+  /* Adjust the following properties to customize the appearance */
+  width: 180px;
+  height: 25px;
+  font-size: 14px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  vertical-align: middle;
+}
+
+/* Style the dropdown arrow */
+#paraphrase_type::after {
+  content: '\25BC'; /* Unicode character for the dropdown arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Ensure the arrow does not interfere with the select functionality */
+}
+
+/* Remove default styling on Firefox */
+#paraphrase_type::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+#sidebar {
+    z-index: 0;
+    padding: 10px;
+    display: inline-block;
+    outline: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 25%;
+    height: 100vh;
+    color: #1d3557;
+    background: #becff5;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sidebar h2 {
+    z-index: 1;
+    text-align: center;
+}
+
+#sidebar button{
+    z-index: 1;
+    margin: 2px 10px;
+    margin-bottom: 4px;
+    padding: 4px 8px;
+    font-family: sans-serif;
+    font-size: 14px;
+    background-color: #f1eefa;
+    border: 2px solid #647c8fd6;
+    color: #314158;
+    border-radius: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#sidebar button:hover {
+    border: 2px solid #314158;
+    background-color: #314158;
+    color: #f1faee;
+}
+
+#taskData {
+    z-index: 1;
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    resize: none;
+    width: 95%;
+    max-height: 500px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+#taskData:empty,
+#taskData:blank {
+  display: none;
+}
+
+pre {
+    z-index: 2;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    display: inline-block;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    resize: none;
+}
+
+main {
+    z-index: 0;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    padding: 10px;
+    display: inline-block;
+    outline: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 73%;
+    height: 98vh;
+    background: white;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+main h2 {
+    margin: 5px 0px;
+}
+
+button {
+    z-index: 2;
+    font-family: sans-serif;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0);
+    border: rgba(0, 0, 0, 0);
+    color: #5581fa;
+    font-weight: bold;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #5581fa;
+    color: white;
+}
+
+.button {
+    font-family: sans-serif;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0);
+    border: rgba(0, 0, 0, 0);
+    color: #3f2d6c;
+    font-weight: bold;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #3f2d6c;
+    color: white;
+}
+
+.highlight {
+    display: inline-block;
+    position: relative;
+    white-space: pre-wrap;
+    z-index: 1;
+}
+
+.highlight.replace {
+    background-color: #fce130;
+    color: black;
+}
+
+.highlight.insert {
+    background-color: #41d62d;
+    color: white;
+}
+
+.highlight.delete {
+    background-color: #de2a2a;
+    color: white;
+}
+
+.popup {
+    color: black;
+    position: absolute;
+    bottom: 100%;
+    left: -5px;
+    padding: 5px;
+    border-radius: 5px;
+    display: none;
+    z-index: 3;
+    white-space: normal;
+    min-width: 150px;
+    max-width: 500px;
+    max-height: 300px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: scroll;
+}
+
+.popup.replace {
+    background-color: #faf9b1;
+}
+
+.popup.insert {
+    background-color: #b3ffb6;
+}
+
+.popup.delete {
+    background-color: #f7c6b7;
+}
+
+.highlight:hover .popup {
+    display: block;
+}
+
+@keyframes soundWaveAnimation {
+    0% { box-shadow: 0 0 0 0 #5581fa; }
+    50% { box-shadow: 0 0 0 5px rgba(85, 129, 250, 0.2); }
+    100% { box-shadow: 0 0 0 0 #5581fa; }
+}
+
+button.recording {
+    animation: soundWaveAnimation 1.5s infinite;
+}
